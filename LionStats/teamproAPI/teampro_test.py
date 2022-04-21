@@ -12,7 +12,7 @@ class TeamProExample(object):
 
     def __init__(self):
         self.config = load_config(CONFIG_FILENAME)
-        # self.get_team_details("Women's Lacrosse")
+        self.get_team_details("Women's Lacrosse")
 
     #get json data
     ##################################

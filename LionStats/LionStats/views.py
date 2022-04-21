@@ -11,11 +11,10 @@ from teamproAPI import teampro_test
 
 def delete_product(request):
     if request.method == "GET":
-        url = ' http://127.0.0.1:7000/'
-        browser_path = 'open /Applications/Google\ Chrome.app %s'
-        #webbrowser.get('open /Applications/Safari.app http://127.0.0.1:7000/')#.open(url)
-        webbrowser.open(url)
-        os.system("cd teamproAPI && py authorization.py runserver") #&& open -a/Applications/Safari.app)
+        url = ' http://127.0.0.1:8080/'
+        browser_path = 'open -a /Applications/Safari.app %s'
+        webbrowser.get(browser_path).open(url)
+        os.system("cd teamproAPI && python authorization.py runserver")
         return render(request, "dashboard.html")
       
 class TeamData(APIView):
