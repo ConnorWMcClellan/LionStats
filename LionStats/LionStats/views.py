@@ -8,8 +8,8 @@ from rest_framework import authentication, permissions
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
-from teamproAPI import teampro_queries
-from teamproAPI import authorization
+from TeamProAPI import teampro_queries
+from TeamProAPI import authorization
 from rest_framework import generics
 
 

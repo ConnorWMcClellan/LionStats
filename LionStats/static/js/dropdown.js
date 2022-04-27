@@ -100,7 +100,8 @@ window.onload = function()
 //    let athBtn = document.getElementById("dropdownAthlete");
 //    let posBtn = document.getElementById("dropdownPosition");
     dropdown();
-    btn.onclick = dropdownAthlete;
+
     btn.onclick = dropdownPosition;
+    btn.onclick = dropdownAthlete;
 }
 
