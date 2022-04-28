@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from utils import load_config, pretty_print_json
+from APIutils import load_config, pretty_print_json
 
 import requests
 import json
@@ -37,9 +37,39 @@ class TeamProExample(object):
         #print(self.get_teams_list())
         #players = self.get_players(team_id)
         #print(self.get_player_names(players))
-        metrics_by_date = self.get_team_metrics_by_date(team_id, "03/20/2022", "04/03/2022")
+        #metrics_by_date = self.get_team_metrics_by_date(team_id, "03/20/2022", "04/03/2022")
         #pretty_print_json(metrics_by_date)
-        pretty_print_json(self.summarize_by_month(metrics_by_date))
+        #pretty_print_json(self.summarize_by_month(metrics_by_date))
+        #pretty_print_json(self.get_home(team_id))
+        pretty_print_json(self.get_session_dates_from_timeframe("Women's Lacrosse", "01-01-2022", "04-28-2022"))
+
+    # Returns the player session metrics of the latest training session
+    def get_home(self, team_id):
+        all_session_data = self.get_team_training_sessions(team_id)
+        session_id = ''
+
+        for data in all_session_data['data']:
+            session_id = data['id']
+            break
+
+        #get training session details
+        latest_session_details = self.get_team_training_session_details(session_id)['data']
+
+        # get all player ids and player session ids
+        player_session_ids = []
+        player_ids = []
+        for keyval in latest_session_details['participants']:
+            player_session_ids.append(keyval['player_session_id'])
+            player_ids.append(keyval['player_id'])
+
+        # append all calculated metrics from every player to a json string
+        all_metrics = {"metrics": []}
+        for i, item in enumerate(player_session_ids):
+            summary = self.get_player_team_training_session_summary(item)['data']
+            metrics = self.calculate_metrics(summary, summary['trimmed_start_time'][0:10], player_ids[i])
+            all_metrics["metrics"].append(metrics)
+
+        return all_metrics
 
     # functions that return .json data
     # vist https://www.polar.com/teampro-api/#teampro-api for example responses
@@ -299,7 +329,7 @@ class TeamProExample(object):
         all_metrics = {"metrics": []}
         for i, item in enumerate(player_session_ids):
             summary = self.get_player_team_training_session_summary(item)['data']
-            metrics = self.calculate_metrics(summary, summary['created'][0:10], player_ids[i])
+            metrics = self.calculate_metrics(summary, summary['trimmed_start_date'][0:10], player_ids[i])
             all_metrics["metrics"].append(metrics)
 
         return all_metrics
@@ -540,6 +570,27 @@ class TeamProExample(object):
         months_json.update(month_to_add)
 
         return months_json
+
+    #returns session dates between a specific timeframe
+    def get_session_dates_from_timeframe(self, team_name, start_date, end_date):
+        # get all training sessions for a specific team
+        team_id = self.get_team_id(team_name)
+        training_sessions = self.get_team_training_sessions(team_id)
+
+        # format start and end dates for easy access from API
+        formatted_start_date = start_date[6:10] + "-" + start_date[0:2] + "-" + start_date[3:5]
+        formatted_end_date = end_date[6:10] + "-" + end_date[0:2] + "-" + end_date[3:5]
+
+        # get all session dates that exist within specified time frame and store them in a json object and array
+        session_dates_array = []
+        session_dates_json = {"date": []}
+        for keyval in training_sessions['data']:
+            if formatted_start_date <= keyval['start_time'][0:10] <= formatted_end_date:
+                session_dates_array.append(keyval['start_time'][0:10])
+                session_dates_json["date"].append(keyval['start_time'][0:10])
+
+        return session_dates_json
+
 
     # given a list of metrics (most likely from get_team_metrics_by_date() method), return team averages by week for
     # each metric (WORK IN PROGRESS)
