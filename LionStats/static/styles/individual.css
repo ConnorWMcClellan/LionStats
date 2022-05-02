@@ -69,6 +69,67 @@
     line-height: 36px;
     color: #FFFFFF;
 }
+.Athlete {
+    position: absolute;
+    width: 425px;
+    height: 36px;
+    left: 165px;
+    top: 210px;
+    z-index: 1;
+    font-family: 'Zen Dots';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.Dropdown span{
+    padding : 30px;
+    background : white;
+    color : black;
+    font-size : 1.2em;
+    font-family: 'Zen Dots';
+    cursor : pointer;
+    display: block;
+    z-index: 100;
+}
+
+.Dropdown span::after {
+  float: right;
+  right: 10%;
+  content: "+";
+  z-index: 5;
+}
+
+
+li a {
+    font-family: 'Zen Dots';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    z-index: 100;
+    /* identical to box height */
+    text-align: center;
+
+    color: black;
+}
+.Dropdown nav {
+  z-index: 100;
+  width : auto;
+  background: #d9d9d9;
+  margin : 40px auto;
+}
+
+.content select{
+    font-size: 25px;
+    font-family: 'Zen Dots';
+}
 
 .start {
     position: absolute;
@@ -146,17 +207,20 @@ input[type="date"]{
   margin : 40px auto;
 }
 
-.menu{
+.Dropdown select{
+    width: 100%;
+}
+#dropdownAthlete.menu{
     clear:both;
-    width:1000px;
-    height:0px;
+    width:50%;
+    height:50px;
     overflow: hidden;
     text-align: center;
     transition: height .4s ease;
     z-index: 5;
 }
 
-.menu li {padding : 30px;}
+#dropdownAthlete.menu li {padding : 30px;}
 
 #touch {position: absolute; opacity: 0; height: 0px; }
 #touch:checked + .menu {height: auto; }

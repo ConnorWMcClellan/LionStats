@@ -7,6 +7,7 @@
     {% block css %}
     <link rel="stylesheet" type="text/css" href="LionStats/individual.css">
     <link href="{% static 'styles/individual.css' %}" rel="stylesheet" />
+    <script type="application/javascript" src="{% static 'js/dropdownIndividual.js' %}"></script>
     {% endblock %}
 
     {% block title %}
@@ -16,10 +17,17 @@
 <body>
 {% block content %}
     <div class="info">
-        <h5 class="name">Name:</h5>
-        <h5 class="sport">Sport:</h5>
-        <h5 class="jersey">Jersey:</h5>
-        <h5 class="pos">Position:</h5>
+            <div class="name">Name:
+
+                        <div class="Dropdown">
+                            <select name = "dropdown" class="menu" id = "dropdownAthlete">
+
+                            </select>
+                        </div>
+                </div>
+        <div class="sport">Sport:</div>
+        <div class="jersey">Jersey:</div>
+        <div class="pos">Position:</div>
     </div>
 
     <div class="Dropdown">
