@@ -282,8 +282,8 @@ class TeamProExample(object):
         training_sessions = self.get_team_training_sessions(team_id)
 
         # format start and end dates for easy access from API
-        formatted_start_date = start_date[6:10] + "-" + start_date[0:2] + "-" + start_date[3:5]
-        formatted_end_date = end_date[6:10] + "-" + end_date[0:2] + "-" + end_date[3:5]
+        formatted_start_date = start_date[0:4] + "-" + start_date[5:7] + "-" + start_date[8:10]
+        formatted_end_date = end_date[0:4] + "-" + end_date[5:7] + "-" + end_date[8:10]
 
         # get all session ids that exist within specified time frame
         session_ids = []
@@ -596,8 +596,8 @@ class TeamProExample(object):
         training_sessions = self.get_team_training_sessions(team_id)
 
         # format start and end dates for easy access from API
-        formatted_start_date = start_date[6:10] + "-" + start_date[0:2] + "-" + start_date[3:5]
-        formatted_end_date = end_date[6:10] + "-" + end_date[0:2] + "-" + end_date[3:5]
+        formatted_start_date = start_date[0:4] + "-" + start_date[5:7] + "-" + start_date[8:10]
+        formatted_end_date = end_date[0:4] + "-" + end_date[5:7] + "-" + end_date[8:10]
 
         # get all session ids that exist within specified time frame
         session_ids = []
@@ -622,6 +622,25 @@ class TeamProExample(object):
             all_metrics["metrics"].append(metrics)
 
         return all_metrics
+
+    def get_session_dates_from_timeframe(self, team_name, start_date, end_date):
+        # get all training sessions for a specific team
+        team_id = self.get_team_id(team_name)
+        training_sessions = self.get_team_training_sessions(team_id)
+
+        # format start and end dates for easy access from API
+        formatted_start_date = start_date[0:4] + "-" + start_date[5:7] + "-" + start_date[8:10]
+        formatted_end_date = end_date[0:4] + "-" + end_date[5:7] + "-" + end_date[8:10]
+
+        # get all session dates that exist within specified time frame and store them in a json object and array
+        session_dates_array = []
+        session_dates_json = {"date": []}
+        for keyval in training_sessions['data']:
+            if formatted_start_date <= keyval['start_time'][0:10] <= formatted_end_date:
+                session_dates_array.append(keyval['start_time'][0:10])
+                session_dates_json["date"].append(keyval['start_time'][0:10])
+
+        return session_dates_json
 
     ##################################
 
