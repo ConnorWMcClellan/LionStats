@@ -239,6 +239,15 @@ body {
   overflow: hidden;
 }
 
+.HomeButton:hover {
+  background-color: #D69819;
+}
+
+.HomeButton:hover {
+  active: #D69819;
+  box-shadow: 0 5px #666;
+}
+
 .HomeRectangle {
   width: 242px;
   height: 78px;
@@ -248,6 +257,15 @@ body {
   top: 0px;
   left: 0px;
   overflow: hidden;
+}
+
+.HomeRectangle:hover {
+  background-color: #D69819;
+}
+
+.HomeRectangle:hover {
+  active: #D69819;
+  box-shadow: 0 5px #666;
 }
 
 .Home {
@@ -297,6 +315,22 @@ body {
   opacity: 1;
   text-align: center;
 }
+.ComparisonRectangle:hover {
+  background-color: #D69819;
+}
+
+.SummaryRectangle:hover {
+  background-color: #D69819;
+}
+
+.IndividualRectangle:hover {
+  background-color: #D69819;
+}
+
+.TeamRectangle:hover {
+  background-color: #D69819;
+}
+
 .name {
   color: #fff;
 }
